@@ -1,7 +1,8 @@
 .container:not(:is(div:has(> .open) > div > div)) {
   height: 0rem !important;
+  transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 
 .container {
-  transition: height 0.25s;
+  transition: height 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
 }
