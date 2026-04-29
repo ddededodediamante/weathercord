@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Maple Mono";
+  src: "/fonts/maple-mono-latin-400-normal.ttf";
+}
+
 :root {
   --accent: #ccaff1;
   --background: #060606;
@@ -74,6 +79,10 @@ input[type="submit"]:hover {
   display: inline;
   height: 1.5em;
   margin-top: -0.2em;
+}
+
+code {
+  font-family: "Maple Mono";
 }
 
 @layer base {
