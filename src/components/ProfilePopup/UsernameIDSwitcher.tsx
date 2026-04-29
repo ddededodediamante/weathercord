@@ -27,7 +27,7 @@ const UsernameIDSwitcher = (props: {
       translate: `0 ${toggled ? "-1em" : "0em"}`
     }}><span style={{
       userSelect: toggled ? "none" : "text"
-    }}>@{props.username}</span><br /><code style={{
+    }}>@{props.username}</span><br className="select-none" /><code style={{
       userSelect: toggled ? "text" : "none"
     }}>{props.id}</code></div></button>
   )
