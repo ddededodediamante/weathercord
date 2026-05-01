@@ -1,20 +1,21 @@
+"use client";
+
 import Box from "../Box/Box";
 import BoxButton from "../BoxButton/BoxButton";
 import type { PublicAccount } from "@/db/schema";
 import { Settings } from "lucide-react";
-import { Vibrant } from "node-vibrant/node";
+import { useEffect, useState } from "react";
 
-const UserIndicatorSmall = async (props: Record<string, any> & PublicAccount & {
+const UserIndicatorSmall = (props: Record<string, any> & PublicAccount & {
   avatar: string,
   canEdit: boolean,
   splash?: string,
 }) => {
-  const accent = await Vibrant.from(props.avatar).getPalette();
-
   return (
     <Box className={"p-[0.7rem] text-left h-4 flex gap-[0.7rem] items-center overflow-hidden " + props.className} style={{
-      backgroundImage: props.splash ? `linear-gradient(90deg, #000000ab 0%, #00000090 100%), url(${props.splash})` : `linear-gradient(90deg, ${accent.LightVibrant?.hex}31 0%, ${accent.LightVibrant?.hex}20 50%, ${accent.LightVibrant?.hex}10 100%)`,
-      backgroundSize: "cover"
+      backgroundImage: props.splash ? `linear-gradient(90deg, #000000ab 0%, #00000090 100%), url(${props.splash})` : null,
+      backgroundSize: "cover",
+      backgroundPosition: "center"
     }}>
       <img className="rounded-full h-[2.6rem] group-[.open]:-translate-y-10" src={props.avatar} alt={props.displayName + "'s avatar"} style={{
         transition: "translate 0.25s"

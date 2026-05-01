@@ -14,6 +14,7 @@ export interface Account {
 }
 
 export type PublicAccount = Pick<Required<Account>, "admin" | "bio" | "displayName" | "id" | "joined" | "nameFont" | "pronouns" | "username">;
+export type AuthorizedAccountFromAPI = Required<Omit<Account, "password">>;
 
 export const accountsTable = sqliteTable("accounts", {
   admin: int(),

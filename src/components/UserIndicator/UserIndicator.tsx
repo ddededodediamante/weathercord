@@ -1,11 +1,13 @@
+// this is really messy and i really don't wanna fix it. so whatever.
+
 import Box from "../Box/Box";
 import ProfilePopupContent from "../ProfilePopup/ProfilePopupContent";
-import type { PublicAccount } from "@/db/schema";
+import type { AuthorizedAccountFromAPI } from "@/db/schema";
 import UserIndicatorClient from "./UserIndicatorClient";
 import UserIndicatorContentClient from "./UserIndicatorContentClient";
 import UserIndicatorSmall from "./UserIndicatorSmall";
 
-const UserIndicator = (props: Record<string, any> & PublicAccount & {
+const UserIndicator = (props: Record<string, any> & AuthorizedAccountFromAPI & {
   avatar: string,
   canEdit: boolean,
   splash?: string

@@ -1,9 +1,9 @@
 import { accountsTable, sessionsTable } from "@/db/schema";
 import cryptoRandomString from "crypto-random-string";
-import { db } from "@/db";
-import { count, eq } from "drizzle-orm";
-import { hash } from "bcrypt";
 import { cookies } from "next/headers";
+import { count, eq } from "drizzle-orm";
+import { db } from "@/db";
+import { hash } from "bcrypt";
 
 interface POSTBody {
   email: string;
