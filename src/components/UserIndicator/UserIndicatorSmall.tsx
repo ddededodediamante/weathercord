@@ -2,14 +2,16 @@
 
 import Box from "../Box/Box";
 import BoxButton from "../BoxButton/BoxButton";
+import { Dispatch, SetStateAction } from "react";
+import { ModalType } from "@/lib/modals";
 import type { PublicAccount } from "@/db/schema";
 import { Settings } from "lucide-react";
-import { useEffect, useState } from "react";
 
 const UserIndicatorSmall = (props: Record<string, any> & PublicAccount & {
   avatar: string,
   canEdit: boolean,
   splash?: string,
+  setModal: Dispatch<SetStateAction<ModalType | null>>
 }) => {
   return (
     <Box className={"p-[0.7rem] text-left h-4 flex gap-[0.7rem] items-center overflow-hidden " + props.className} style={{
@@ -24,12 +26,15 @@ const UserIndicatorSmall = (props: Record<string, any> & PublicAccount & {
         transition: "translate 0.25s"
       }}>
         <span style={{
-          fontFamily: props.nameFont
-        }}>{props.displayName}</span><br />
+          fontFamily: props.nameFont ?? "inherit"
+        }}>{props.displayName ?? props.username}</span><br />
         <sub>@{props.username}</sub>
       </div>
       {props.canEdit &&
-        <BoxButton>
+        <BoxButton onClick={(event) => {
+          event.stopPropagation();
+          props.setModal(ModalType.AccountSettings);
+        }}>
           <Settings strokeWidth="1.5" />
         </BoxButton>
       }

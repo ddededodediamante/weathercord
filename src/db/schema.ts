@@ -2,14 +2,14 @@ import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export interface Account {
   admin: boolean;
-  bio?: string;
-  displayName?: string;
+  bio: string | null;
+  displayName: string | null;
   email?: string;
-  nameFont?: string;
+  nameFont: string | null;
   id: string;
   joined: number;
   password: string;
-  pronouns?: string;
+  pronouns: string | null;
   username: string;
 }
 

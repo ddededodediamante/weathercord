@@ -37,7 +37,11 @@ body {
   color: var(--foreground);
 }
 
-sub, label *:not(input) {
+::placeholder {
+  color: var(--sub);
+}
+
+sub, label *:not(input, textarea) {
   color: var(--sub);
   font-size: 0.75rem;
 }
@@ -53,9 +57,9 @@ label {
   width: 100%;
 }
 
-input {
+input, textarea, button.action {
   border-radius: 0.75rem;
-  padding: 0.25rem 0.75rem;
+  padding: 0.3rem 0.65rem;
   outline: 1px solid var(--outline);
   background-color: var(--background-2);
   width: 100%;
@@ -63,16 +67,15 @@ input {
   transition: outline-color 0.125s;
 }
 
-input:focus {
+:is(input, textarea, button.action):focus-visible {
   outline-color: var(--accent);
 }
 
-input[type="submit"] {
-  margin-top: 1rem;
+input[type="submit"], button.action {
   cursor: pointer;
 }
 
-input[type="submit"]:hover {
+:is(input[type="submit"], button.action):hover {
   outline-color: var(--outline-active);
 }
 
@@ -97,6 +100,10 @@ code {
 blockquote {
   padding: 0.5rem 1rem;
   border-left: solid 0.2rem var(--accent);
+}
+
+textarea {
+  height: 6em;
 }
 
 @layer base {

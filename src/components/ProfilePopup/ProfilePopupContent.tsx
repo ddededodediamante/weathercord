@@ -25,8 +25,8 @@ const ProfilePopupContent = (props: Record<string, any> & PublicAccount & {
           <img className="rounded-full w-6 h-6" src={props.avatar} alt={props.displayName + "'s avatar"} />
           <div>
             <div className="text-2xl font-bold" style={{
-              fontFamily: props.nameFont
-            }}>{props.displayName}</div>
+              fontFamily: props.nameFont ?? "inherit"
+            }}>{props.displayName ?? props.username}</div>
             <sub><UsernameIDSwitcher id={props.id} username={props.username} /></sub><br />
             <sub>{props.pronouns}</sub>
           </div>

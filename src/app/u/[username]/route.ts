@@ -4,11 +4,7 @@ import { cookies } from "next/headers";
 import { count, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { hash } from "bcrypt";
-
-interface POSTBody {
-  email: string;
-  password: string;
-};
+import { nullish } from "@/lib/api";
 
 const generateUID = (sequential: number) => `${Math.floor(sequential).toString(16)}w${Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString(16).padStart(14, "0")}`;
 
@@ -19,12 +15,12 @@ export async function GET(_: Request, { params }: { params: Promise<{ username: 
 
   return new Response(JSON.stringify({
     admin: !!account.admin,
-    bio: account.bio ?? "",
-    displayName: account.displayName && account.displayName.length > 1 ? account.displayName : account.username,
+    bio: nullish(account.bio),
+    displayName: nullish(account.displayName),
     id: account.id,
     joined: account.joined,
-    nameFont: account.nameFont ?? "\"__nextjs-Geist\", \"Geist\", -apple-system, \"Source Sans Pro\", sans-serif",
-    pronouns: account.pronouns ?? "",
+    nameFont: nullish(account.nameFont),
+    pronouns: nullish(account.pronouns),
     username: account.username
   }), {
     headers: {
@@ -33,14 +29,19 @@ export async function GET(_: Request, { params }: { params: Promise<{ username: 
   });
 };
 
+interface POSTBody {
+  email: string;
+  password: string;
+};
+
 export async function POST(req: Request, { params }: { params: Promise<{ username: string }> }) {
   const username = (await params).username;
 
   const { email, password }: Partial<POSTBody> = await req.json();
 
   // if (!email) return new Response("Email is required", { status: 400 });
-  if (!password) return new Response("Password is required", { status: 400 });
-  if (!username) return new Response("Username is required", { status: 400 });
+  if (typeof password === "undefined") return new Response("Password is required", { status: 400 });
+  if (typeof username === "undefined") return new Response("Username is required", { status: 400 });
 
   if (username.length < 1) return new Response("Username is too short", { status: 400 });
   if (username.length > 20) return new Response("Username is too long", { status: 400 });
@@ -51,7 +52,6 @@ export async function POST(req: Request, { params }: { params: Promise<{ usernam
   if (password.length > 50) return new Response("Password is too long", { status: 400 });
 
   const usernameTaken = (await db.select().from(accountsTable).where(eq(accountsTable.username, username))).values().toArray()[0];
-  console.log(usernameTaken);
   if (usernameTaken) return new Response("Username is taken", { status: 400 });
 
   const id = generateUID((await db.select({ count: count() }).from(accountsTable))[0].count);
@@ -73,6 +73,54 @@ export async function POST(req: Request, { params }: { params: Promise<{ usernam
     password: passwordHash,
     username
   }).execute();
+
+  return new Response();
+};
+
+interface PUTBody {
+  bio: string;
+  displayName: string;
+  pronouns: string;
+  username: string;
+}
+
+export async function PUT(req: Request, { params }: { params: Promise<{ username: string }> }) {
+  const authCookie = (await cookies()).get("auth")?.value;
+
+  if (!authCookie) return new Response("Missing required cookie \"auth\"", { status: 401 });
+
+  const sessionList = (await db.select().from(sessionsTable).where(eq(sessionsTable.code, authCookie))).values().toArray();
+  if (!sessionList[0]) return new Response("Authorization token showed no results", { status: 401 });
+  const session = sessionList[0];
+  const requester = (await db.select().from(accountsTable).where(eq(accountsTable.id, session.id))).values().toArray()[0];
+  if (!requester) return new Response("this is weird", { status: 404 });
+  const oldUsername = (await params).username;
+  const accountToChange = (await db.select().from(accountsTable).where(eq(accountsTable.username, oldUsername))).values().toArray()[0];
+
+  if (requester.id !== accountToChange.id && !requester.admin) return new Response("You cannot edit this account", { status: 403 });
+
+  const { bio, displayName, pronouns, username }: Partial<PUTBody> = await req.json();
+
+  if (typeof bio !== "string") return new Response("Missing bio field", { status: 400 });
+  if (typeof displayName !== "string" && typeof displayName !== "undefined") return new Response("Missing displayName field", { status: 400 });
+  if (typeof pronouns !== "string") return new Response("Missing pronouns field", { status: 400 });
+  if (typeof username !== "string") return new Response("Missing username field", { status: 400 });
+
+  if (bio.length > 500) return new Response("Bio is too long", { status: 400 });
+  if (displayName && displayName.length > 40) return new Response("Display name is too long", { status: 400 });
+  if (pronouns.length > 20) return new Response("Pronouns are too long", { status: 400 });
+  if (username.length < 1) return new Response("Username is too short", { status: 400 });
+  if (username.length > 20) return new Response("Username is too long", { status: 400 });
+
+  const usernameTaken = (await db.select().from(accountsTable).where(eq(accountsTable.username, username))).values().toArray()[0];
+  if (usernameTaken && accountToChange.username !== username) return new Response("Username is taken", { status: 400 });
+
+  await db.update(accountsTable).set({
+    bio,
+    displayName,
+    pronouns,
+    username
+  }).where(eq(accountsTable.id, accountToChange.id)).execute();
 
   return new Response();
 };

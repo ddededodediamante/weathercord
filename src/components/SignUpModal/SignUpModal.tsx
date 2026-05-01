@@ -59,7 +59,7 @@ const SignUpModal = () => {
           });
 
           if (!res.ok) {
-            error = await res.text();
+            setError(await res.text());
             return;
           }
         }}>

@@ -1,12 +1,17 @@
 "use client";
 
+import AccountSettingsModal from "../AccountSettingsModal/AccountSettingsModal";
 import { AuthorizedAccountFromAPI } from "@/db/schema";
+import LoadingScreen from "../LoadingScreen/LoadingScreen";
+import { ModalType } from "@/lib/modals";
 import { Prompt } from "../Prompt/Prompt";
-import UserIndicator from "../UserIndicator/UserIndicator";
+import SignUpModal from "../SignUpModal/SignUpModal";
 import { useEffect, useState } from "react";
+import UserIndicator from "../UserIndicator/UserIndicator";
 
 const GUI = () => {
-  const [account, setAccount] = useState<AuthorizedAccountFromAPI>();
+  const [account, setAccount] = useState<AuthorizedAccountFromAPI | null>(null);
+  const [modal, setModal] = useState<ModalType | null>(null);
 
   useEffect(() => {
     fetch("/whoami")
@@ -14,17 +19,23 @@ const GUI = () => {
       .then((account) => setAccount(account));
   }, [0]);
 
-  // TODO: make this better
   if (!account) return (
-    <div>Please log in.</div>
+    <LoadingScreen />
   );
 
   return (
     <>
-      <UserIndicator className="w-20" avatar={"/avatar.png"} splash={"/banner.png"} canEdit {...account} />
+      <UserIndicator className="w-20" avatar={"/avatar.png"} splash={"/banner.png"} canEdit {...account} setModal={setModal} />
       <Prompt className="absolute bottom-1 left-22" style={{
         width: "calc(100vw - 23rem)"
       }} />
+
+      {modal === ModalType.AccountSettings &&
+        <AccountSettingsModal closeModal={() => setModal(null)} account={account} setAccount={setAccount} />
+      }
+      {modal === ModalType.SignUp &&
+        <SignUpModal />
+      }
     </>
   );
 };
