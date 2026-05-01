@@ -1,0 +1,29 @@
+sub:not(:hover) {
+  color: var(--sub) !important;
+}
+
+sub .hover:has(> .lucide) {
+  animation: smoosh 0.7s;
+}
+
+@keyframes smoosh {
+  0% {
+    transform: scaleX(1) scaleY(1);
+  }
+
+  25% {
+    transform: scaleX(0.8) scaleY(1.2);
+  }
+
+  50% {
+    transform: scaleX(1.1) scaleY(0.9);
+  }
+
+  75% {
+    transform: scaleX(0.95) scaleY(1.05);
+  }
+
+  100% {
+    transform: scaleX(1) scaleY(1);
+  }
+}
