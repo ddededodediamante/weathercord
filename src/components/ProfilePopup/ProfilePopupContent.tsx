@@ -8,11 +8,11 @@ import UsernameIDSwitcher from "./UsernameIDSwitcher";
 
 const ProfilePopupContent = (props: Record<string, any> & PublicAccount & {
   avatar: string,
-  canEdit: boolean,
+  canEdit?: boolean,
   splash?: string
 }) => {
   return (
-    <div className="text-left" style={props.style}>
+    <div className={"text-left " + props.className} style={props.style}>
       {props.splash &&
         <div className="h-7 w-full -mb-7" aria-hidden style={{
           backgroundImage: `url(${props.splash})`,
