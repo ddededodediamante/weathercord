@@ -12,7 +12,7 @@ const Badge = (props: {
   const [timeout, setTimeoutState] = useState(setTimeout(() => {}));
 
   return (
-    <sub className="flex gap-[0.2rem] items-center select-none transition" style={{
+    <sub className="badge flex gap-[0.2rem] items-center select-none transition" style={{
       color: props.color,
       padding: "0.3rem 0"
     }} onMouseEnter={() => {

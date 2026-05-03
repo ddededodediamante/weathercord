@@ -19,6 +19,8 @@ export async function GET(_: Request) {
   if (!account) return new Response("this is weird", { status: 404 });
 
   return new Response(JSON.stringify({
+    accent1: nullish(account.accent1),
+    accent2: nullish(account.accent2),
     admin: !!account.admin,
     bio: nullish(account.bio),
     displayName: nullish(account.displayName),

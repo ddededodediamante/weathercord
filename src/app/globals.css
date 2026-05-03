@@ -50,7 +50,7 @@
   --foreground: #fafafa;
   --outline: #292929;
   --outline-active: #424242;
-  --sub: #9e9e9e;
+  --sub: #ffffff7f;
   --text-selection: #6284ff75;
 
   --spacing: 1rem;
@@ -93,7 +93,7 @@ label {
   width: 100%;
 }
 
-input, textarea, button.action, select {
+input:not([type="checkbox"]), textarea, button.action, select {
   border-radius: 0.75rem;
   padding: 0.3rem 0.65rem;
   outline: 1px solid var(--outline);
@@ -103,7 +103,7 @@ input, textarea, button.action, select {
   transition: outline-color 0.125s;
 }
 
-:is(input, textarea, button.action, select):focus-visible {
+:is(input:not([type="checkbox"]), textarea, button.action, select):focus-visible {
   outline-color: var(--accent);
 }
 

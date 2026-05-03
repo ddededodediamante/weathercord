@@ -13,6 +13,9 @@ const AccountSettingsModal = (props: {
   closeModal: () => void,
   setAccount: Dispatch<SetStateAction<AuthorizedAccountFromAPI | null>>
 }) => {
+  let [customAccent, setCustomAccent] = useState(!!props.account.accent1);
+  let [accent1, setAccent1] = useState(props.account.accent1 ?? "#000000");
+  let [accent2, setAccent2] = useState(props.account.accent2 ?? "#000000");
   let [bio, setBio] = useState(props.account.bio ?? "");
   let [displayName, setDisplayName] = useState(props.account.displayName ?? "");
   let [nameFont, setNameFont] = useState(props.account.nameFont ?? "");
@@ -30,6 +33,8 @@ const AccountSettingsModal = (props: {
           const res = await fetch(`/u/${props.account.username}`, {
             method: "PUT",
             body: JSON.stringify({
+              accent1,
+              accent2,
               bio,
               displayName,
               pronouns,
@@ -44,6 +49,8 @@ const AccountSettingsModal = (props: {
           }
 
           props.setAccount({
+            accent1: customAccent ? accent1 : null,
+            accent2: customAccent ? accent2 : null,
             admin: props.account.admin,
             bio: nullish(bio),
             displayName: nullish(displayName),
@@ -84,6 +91,13 @@ const AccountSettingsModal = (props: {
             <input type="text" value={pronouns} onChange={(event) => setPronouns(event.currentTarget.value)} />
           </label>
           <label>
+            <div><input type="checkbox" checked={customAccent} onChange={(event) => setCustomAccent(event.currentTarget.checked)} /> Card Accent</div>
+            {customAccent && <>
+              <input type="color" value={accent1} onChange={(event) => setAccent1(event.currentTarget.value)} />
+              <input type="color" value={accent2} onChange={(event) => setAccent2(event.currentTarget.value)} />
+            </>}
+          </label>
+          <label>
             <div>Bio</div>
             <textarea value={bio} onChange={(event) => setBio(event.currentTarget.value)}></textarea>
           </label>
@@ -102,6 +116,8 @@ const AccountSettingsModal = (props: {
       </div>
       <Box className="w-20 rounded-2xl overflow-auto">
         <ProfilePopupContent
+          accent1={customAccent ? accent1 : null}
+          accent2={customAccent ? accent2 : null}
           admin={props.account.admin}
           bio={nullish(bio)}
           displayName={nullish(displayName)}

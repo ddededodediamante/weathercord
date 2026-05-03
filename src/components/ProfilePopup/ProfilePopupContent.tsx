@@ -2,6 +2,7 @@
 
 import Badge from "./Badge";
 import { contributors } from "@/lib/contributors";
+import convert from "color-convert";
 import { Cake, Heart, Shield, Star } from "lucide-react";
 import type { PublicAccount } from "@/db/schema";
 import UsernameIDSwitcher from "./UsernameIDSwitcher";
@@ -11,8 +12,21 @@ const ProfilePopupContent = (props: Record<string, any> & PublicAccount & {
   canEdit?: boolean,
   splash?: string
 }) => {
+  let accent1 = props.accent1;
+  let accent2 = props.accent2;
+  if (accent1 && accent2) {
+    let a1 = convert.hex.hsv(accent1);
+    a1[2] = Math.min(a1[2], 30);
+    accent1 = "#" + convert.hsl.hex(a1);
+
+    let a2 = convert.hex.hsv(accent2);
+    a2[2] = Math.min(a2[2], 30);
+    accent2 = "#" + convert.hsl.hex(a2);
+  }
+  console.log(accent1, accent2);
+
   return (
-    <div className={"text-left " + props.className} style={props.style}>
+    <div className={"profileCard text-left " + props.className} style={props.style}>
       {props.splash &&
         <div className="h-7 w-full -mb-7" aria-hidden style={{
           backgroundImage: `url(${props.splash})`,
@@ -21,7 +35,7 @@ const ProfilePopupContent = (props: Record<string, any> & PublicAccount & {
         }} />
       }
       <div className="p-1 pt-5 flex flex-col gap-1" style={{
-        backgroundImage: `linear-gradient(180deg, transparent, var(--background) 7rem)`
+        backgroundImage: `linear-gradient(180deg, transparent, ${accent1 ?? "var(--background)"} 7rem, ${accent2 ?? "var(--background)"})`
       }}>
         <div className="flex gap-1">
           <img className="rounded-full w-6 h-6" src={props.avatar} alt={props.displayName + "'s avatar"} />
