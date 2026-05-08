@@ -148,4 +148,10 @@ textarea {
     font-weight: bold;
     margin-bottom: 0.5rem;
   }
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0.7rem 0;
+  }
 }

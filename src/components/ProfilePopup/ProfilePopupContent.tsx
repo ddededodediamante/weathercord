@@ -57,7 +57,7 @@ const ProfilePopupContent = (props: Record<string, any> & PublicAccount & {
           {props.admin &&
             <Badge color="#6bc1ff" icon={<Shield />} value="Administrator" />
           }
-          {contributors.includes(props.id) &&
+          {contributors.some((contributor) => contributor.id === props.id) &&
             <Badge color="#ff87cf" icon={<Heart />} value="Source Code Contributor" />
           }
           <Badge color="#ffc2fc" icon={<Cake />} value={`Joined ${new Date(props.joined).toLocaleDateString()}`} />

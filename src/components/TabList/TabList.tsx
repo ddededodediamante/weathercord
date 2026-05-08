@@ -38,7 +38,7 @@ const TabList = (props: {
       {props.tabList.map((t, index) => {
         return (
           <button key={index} onMouseEnter={() => setHoveredTab(index)} className="w-full p-[0.4rem] text-left cursor-pointer relative z-1 transition active:*:scale-95 hover:text-inherit" onClick={() => props.setTab(index)}>
-            <div className={"flex items-center gap-[0.2rem] text-(--sub) transition" + (props.tabList[props.tab] === t ? " text-(--accent)!" : "")}>
+            <div className={"flex items-center gap-[0.4rem] text-(--sub) transition" + (props.tabList[props.tab] === t ? " text-(--accent)!" : "")}>
               {t.icon}{t.name}
             </div>
           </button>

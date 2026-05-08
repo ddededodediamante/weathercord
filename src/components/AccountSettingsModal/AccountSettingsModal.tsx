@@ -1,17 +1,19 @@
 "use client";
 
+import AboutTab from "./AboutTab";
 import { AuthorizedAccountFromAPI } from "@/db/schema";
+import { BadgeInfo, Puzzle, User, X } from "lucide-react";
 import BoxButton from "../BoxButton/BoxButton";
 import ConnectionsTab from "./ConnectionsTab";
 import { Dispatch, SetStateAction, useState } from "react";
 import Modal from "../Modal/Modal";
 import ProfileTab from "./ProfileTab";
-import { Puzzle, User, X } from "lucide-react";
 import TabList, { Tab } from "../TabList/TabList";
 
 export enum ModalTab {
   Profile = 0,
-  Connections = 1
+  Connections = 1,
+  About = 2
 };
 
 const tabList: Tab[] = [
@@ -22,6 +24,10 @@ const tabList: Tab[] = [
   {
     icon: <Puzzle strokeWidth={1.5} />,
     name: "Connections"
+  },
+  {
+    icon: <BadgeInfo strokeWidth={1.5} />,
+    name: "About"
   }
 ];
 
@@ -43,6 +49,9 @@ const AccountSettingsModal = (props: {
         }
         {tab === ModalTab.Connections &&
           <ConnectionsTab account={props.account} />
+        }
+        {tab === ModalTab.About &&
+          <AboutTab />
         }
       </div>
     </Modal>
