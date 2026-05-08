@@ -1,8 +1,22 @@
 "use client";
 
-import { AuthorizedAccountFromAPI } from "@/db/schema";
+import ActionRow from "../ActionRow/ActionRow";
+import { AuthorizedAccountFromAPI, ConnectionType } from "@/db/schema";
 import Box from "../Box/Box";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Globe } from "lucide-react";
+import { ReactNode, useState } from "react";
+
+interface ConnectionOption {
+  icon: ReactNode,
+  type: ConnectionType
+};
+
+const connectionOptions: ConnectionOption[] = [
+  {
+    icon: <Globe />,
+    type: ConnectionType.Domain
+  }
+];
 
 const ConnectionsTab = (props: {
   account: AuthorizedAccountFromAPI
@@ -14,6 +28,17 @@ const ConnectionsTab = (props: {
   return (
     <>
       <h1>Connections</h1>
+      <ActionRow>
+        {connectionOptions.map((connectionOption, index) => {
+          return (
+            <button key={index} className="cursor-pointer active:*:scale-95">
+              <Box className="rounded-xl p-1 transition">
+                {connectionOption.icon}
+              </Box>
+            </button>
+          );
+        })}
+      </ActionRow>
     </>
   )
 }

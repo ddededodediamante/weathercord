@@ -17,5 +17,14 @@ export const contributors: readonly Contributor[] = Object.freeze([
       id: "129226914"
     },
     quote: "but we've been born anew, so perfectly askew..."
+  },
+  {
+    id: "1w053d3942035cb9",
+    name: "tally",
+    github: {
+      username: "tallypaws",
+      id: "113806118"
+    },
+    quote: "bleps at u"
   }
 ]);
