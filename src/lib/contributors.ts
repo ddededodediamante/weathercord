@@ -13,7 +13,7 @@ export const contributors: readonly Contributor[] = Object.freeze([
     id: "0w1bcb00925be5d2",
     name: "Rayne D.",
     github: {
-      username: "raynecloudy",
+      username: "raynepaws",
       id: "129226914"
     },
     quote: "but we've been born anew, so perfectly askew..."

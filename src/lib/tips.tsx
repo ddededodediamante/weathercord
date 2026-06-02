@@ -8,7 +8,7 @@ export const tips: Tip[] = [
   "Let's get this show on the road!",
   "Mention with an ID by prefixing it with @&",
   "Perfect little packages, disposed of when it's finished",
-  <span>Weathercord is open source. <a href="https://github.com/raynecloudy/weathercord" target="_blank"><u>https://github.com/raynecloudy/weathercord</u></a></span>,
+  <span>Weathercord is open source. <a href="https://github.com/raynepaws/weathercord" target="_blank"><u>https://github.com/raynepaws/weathercord</u></a></span>,
   "you look so pretty today!"
 ];
 
