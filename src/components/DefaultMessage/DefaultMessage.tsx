@@ -1,10 +1,10 @@
 "use client";
 
-import { l10n } from "@/lib/l10n.generated";
+import { l10nValue } from "@/lib/l10n.generated";
 import { localize } from "./localize";
 
 const DefaultMessage = (props: {
-  id: keyof l10n,
+  id: l10nValue,
   values?: Record<string, string>
 }) => {
   let data = localize(props.id);
@@ -16,7 +16,7 @@ const DefaultMessage = (props: {
   );
 };
 
-export const defaultMessage = (id: keyof l10n, values?: Record<string, string>) => {
+export const defaultMessage = (id: l10nValue, values?: Record<string, string>) => {
   let data = localize(id);
   for (const key in values) {
     data = data.replaceAll(`{{${key}}}`, values[key]);
