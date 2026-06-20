@@ -1,0 +1,32 @@
+div:has(> .lang) {
+  overflow: scroll;
+}
+
+.lang {
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+
+.lang:first-child {
+  padding-top: 0.5rem;
+}
+
+.lang:last-child {
+  padding-bottom: 0.5rem;
+}
+
+.lang > div {
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  display: flex;
+  align-items: center;
+}
+
+.lang:hover > div {
+  background-color: var(--box-button-active);
+}
+
+.lang img {
+  margin-right: 1.5rem;
+  scale: 0.9;
+}

@@ -1,14 +1,15 @@
 "use client";
 
 import { l10nValue } from "@/lib/l10n.generated";
-import { localize } from "./localize";
-import { ReactNode } from "react";
+import { l10nStore, localize } from "./localize";
+import { ReactNode, useSyncExternalStore } from "react";
 import reactStringReplace from "react-string-replace";
 
 const DefaultMessage = (props: {
   id: l10nValue,
   values?: Record<string, ReactNode | string>
 }) => {
+  useSyncExternalStore(l10nStore.subscribe, l10nStore.getSnapshot); // update all DefaultMessages when language changes
   let data: string | ReactNode[] = localize(props.id);
   for (const key in props.values) {
     data = reactStringReplace(data, `{{${key}}}`, (_, i) => (

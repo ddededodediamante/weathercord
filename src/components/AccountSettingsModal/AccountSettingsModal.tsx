@@ -2,12 +2,13 @@
 
 import AboutTab from "./AboutTab";
 import { AuthorizedAccountFromAPI } from "@/db/schema";
-import { BadgeInfo, LoaderCircle, Puzzle, User, X } from "lucide-react";
+import { BadgeInfo, Globe, LoaderCircle, Puzzle, User, X } from "lucide-react";
 import Box from "../Box/Box";
 import BoxButton from "../BoxButton/BoxButton";
 import ConnectionsTab from "./ConnectionsTab";
 import DefaultMessage from "../DefaultMessage/DefaultMessage";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import LanguageTab from "./LanguageTab";
 import Modal from "../Modal/Modal";
 import ProfileTab from "./ProfileTab";
 import TabList, { Tab } from "../TabList/TabList";
@@ -15,14 +16,9 @@ import TabList, { Tab } from "../TabList/TabList";
 export enum ModalTab {
   Profile = 0,
   Connections = 1,
-  About = 2
+  Language = 2,
+  About = 3
 };
-
-export const modalTabURLNames = [
-  "profile",
-  "connections",
-  "about"
-];
 
 export enum FeedbackStateType {
   Loading = 1,
@@ -40,18 +36,19 @@ export type FeedbackState = {
 const tabList: Tab[] = [
   {
     icon: <User strokeWidth={1.5} />,
-    name: <DefaultMessage id="settings.tab.profile" />,
-    url: "/settings/profile"
+    name: <DefaultMessage id="settings.tab.profile" />
   },
   {
     icon: <Puzzle strokeWidth={1.5} />,
-    name: <DefaultMessage id="settings.tab.connections" />,
-    url: "/settings/connections"
+    name: <DefaultMessage id="settings.tab.connections" />
+  },
+  {
+    icon: <Globe strokeWidth={1.5} />,
+    name: <DefaultMessage id="settings.tab.language" />
   },
   {
     icon: <BadgeInfo strokeWidth={1.5} />,
-    name: <DefaultMessage id="settings.tab.about" />,
-    url: "/settings/about"
+    name: <DefaultMessage id="settings.tab.about" />
   }
 ];
 
@@ -104,6 +101,9 @@ const AccountSettingsModal = (props: {
         }
         {tab === ModalTab.Connections &&
           <ConnectionsTab account={props.account} />
+        }
+        {tab === ModalTab.Language &&
+          <LanguageTab account={props.account} />
         }
         {tab === ModalTab.About &&
           <AboutTab />
