@@ -14,7 +14,7 @@
   "settings.tab.about.contributors.paragraph-1": "{{APP_NAME}} is an {{link}}, meaning anyone can contribute to its development! Below is a list of people who have contributed source code to {{APP_NAME}}.",
   "settings.tab.about.contributors.paragraph-1.link-1": "open source project",
   "settings.tab.about.team": "Team",
-  "settings.tab.about.team.paragraph-1": "The people behind the screen!",
+  "settings.tab.about.team.paragraph-1": "A collective committed to {{APP_NAME}}'s development!",
   "settings.tab.connections": "Connections",
   "settings.tab.language": "Language",
   "settings.tab.profile": "Profile",

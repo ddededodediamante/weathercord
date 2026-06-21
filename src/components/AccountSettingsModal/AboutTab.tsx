@@ -7,18 +7,8 @@ import { Hammer, Heart, Quote } from "lucide-react";
 const AboutTab = () => {
   return (
     <>
-      <h1><DefaultMessage
-        id="settings.tab.about.header"
-        values={{
-          APP_NAME
-        }}
-      /></h1>
-      <p><DefaultMessage
-        id="settings.tab.about.header.paragraph-1"
-        values={{
-          APP_NAME
-        }}
-      /></p>
+      <h1><DefaultMessage id="settings.tab.about.header" /></h1>
+      <p><DefaultMessage id="settings.tab.about.header.paragraph-1" /></p>
       <h2><Hammer /> <DefaultMessage id="settings.tab.about.team" /></h2>
       <p><DefaultMessage id="settings.tab.about.team.paragraph-1" /></p>
       <div className="grid grid-cols-2 mt-1">
@@ -51,7 +41,6 @@ const AboutTab = () => {
       <p><DefaultMessage
         id="settings.tab.about.contributors.paragraph-1"
         values={{
-          APP_NAME,
           link: (
             <a href="https://github.com/raynepaws/weathercord" className="link" target="_blank"><DefaultMessage id="settings.tab.about.contributors.paragraph-1.link-1" /></a>
           )}}
