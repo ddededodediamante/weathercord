@@ -2,7 +2,7 @@
 
 import { APP_NAME } from "@/lib/constants";
 import { l10nValue } from "@/lib/l10n.generated";
-import { l10nStore, localize } from "./localize";
+import { l10nStore, localize } from "@/lib/l10n";
 import { ReactNode, useSyncExternalStore } from "react";
 import reactStringReplace from "react-string-replace";
 

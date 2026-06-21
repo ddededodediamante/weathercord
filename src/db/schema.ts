@@ -15,6 +15,7 @@ export interface Account {
   id: string;
   joined: number;
   lang: string;
+  showLang: boolean;
   nameFont: string | null;
   password: string;
   pronouns: string | null;
@@ -31,7 +32,7 @@ export interface Connection {
   value: string;
 }
 
-export type PublicAccount = Omit<Required<Account>, "email" | "password">;
+export type PublicAccount = Omit<Required<Account>, "email" | "password" | "lang"> & { lang?: string };
 export type AuthorizedAccountFromAPI = Required<Omit<Account, "password">>;
 
 export const accountsTable = sqliteTable("accounts", {
@@ -44,6 +45,7 @@ export const accountsTable = sqliteTable("accounts", {
   id: text().notNull().unique(),
   joined: int().notNull(),
   lang: text().notNull().default("en-us"),
+  showLang: boolean().notNull().default(false),
   nameFont: text(),
   password: text().notNull(),
   pronouns: text(),

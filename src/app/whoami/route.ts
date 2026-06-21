@@ -31,6 +31,7 @@ export async function GET(_: Request) {
     displayName: nullish(account.displayName),
     email: account.email,
     lang: account.lang,
+    showLang: account.showLang,
     id: account.id,
     joined: account.joined,
     nameFont: nullish(account.nameFont),

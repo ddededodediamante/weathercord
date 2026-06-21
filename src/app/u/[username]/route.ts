@@ -41,7 +41,8 @@ export async function GET(_: Request, { params }: { params: Promise<{ username: 
     displayName: nullish(account.displayName),
     id: account.id,
     joined: account.joined,
-    lang: account.lang,
+    lang: account.showLang ? account.lang : undefined,
+    showLang: account.showLang,
     nameFont: nullish(account.nameFont),
     pronouns: nullish(account.pronouns),
     username: account.username
@@ -107,6 +108,7 @@ interface PUTBody {
   banner: string | null,
   bio: string;
   displayName: string;
+  showLang: boolean;
   nameFont: string;
   pronouns: string;
   username: string;
@@ -127,10 +129,11 @@ export async function PUT(req: Request, { params }: { params: Promise<{ username
 
   if (requester.id !== accountToChange.id && !requester.admin) return new Response("You cannot edit this account", { status: 403 });
 
-  const { accent1, accent2, avatar, banner, bio, displayName, nameFont, pronouns, username }: Partial<PUTBody> = await req.json();
+  const { accent1, accent2, avatar, banner, bio, displayName, showLang, nameFont, pronouns, username }: Partial<PUTBody> = await req.json();
 
   if (typeof bio !== "string") return new Response("Missing bio field", { status: 400 });
   if (typeof displayName !== "string" && typeof displayName === "undefined") return new Response("Missing displayName field", { status: 400 });
+  if (typeof showLang !== "boolean") return new Response("Missing showLang field", { status: 400 });
   if (typeof nameFont !== "string" && typeof nameFont === "undefined") return new Response("Missing nameFont field", { status: 400 });
   if (typeof pronouns !== "string") return new Response("Missing pronouns field", { status: 400 });
   if (typeof username !== "string") return new Response("Missing username field", { status: 400 });
@@ -155,6 +158,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ username
     accent2,
     bio,
     displayName,
+    showLang,
     nameFont,
     pronouns,
     username

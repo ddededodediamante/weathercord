@@ -2,6 +2,10 @@ sub:not(:hover) {
   color: var(--sub) !important;
 }
 
+sub:hover img[src^="/l10n/icons"] {
+  filter: saturate(1);
+}
+
 sub .hover:has(> .lucide) {
   animation: smoosh 0.7s;
 }

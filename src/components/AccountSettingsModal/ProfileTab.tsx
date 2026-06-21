@@ -22,6 +22,7 @@ const ProfileTab = (props: {
   let [bannerPreviewURL, setBannerPreviewURL] = useState(`/u/${props.account.username}/b`);
   let [bio, setBio] = useState(props.account.bio ?? "");
   let [displayName, setDisplayName] = useState(props.account.displayName ?? "");
+  let [showLang, setShowLang] = useState(!!props.account.showLang);
   let [nameFont, setNameFont] = useState(props.account.nameFont ?? "");
   let [pronouns, setPronouns] = useState(props.account.pronouns ?? "");
   let [username, setUsername] = useState(props.account.username);
@@ -47,6 +48,7 @@ const ProfileTab = (props: {
               bio,
               displayName,
               pronouns,
+              showLang,
               nameFont,
               username
             })
@@ -73,6 +75,7 @@ const ProfileTab = (props: {
             id: props.account.id,
             joined: props.account.joined,
             lang: props.account.lang,
+            showLang: showLang,
             nameFont: nullish(nameFont),
             pronouns: nullish(pronouns),
             username
@@ -174,6 +177,9 @@ const ProfileTab = (props: {
             <div><DefaultMessage id="settings.tab.profile.bio" /></div>
             <textarea value={bio} onChange={(event) => setBio(event.currentTarget.value)}></textarea>
           </label>
+          <label>
+            <div><input type="checkbox" checked={showLang} onChange={(event) => setShowLang(event.currentTarget.checked)} /> <DefaultMessage id="settings.tab.profile.show-language" /></div>
+          </label>
           <input type="submit" value={defaultMessage("settings.tab.profile.save")} />
         </form>
       </div>
@@ -189,6 +195,8 @@ const ProfileTab = (props: {
           displayName={nullish(displayName)}
           id={props.account.id}
           joined={props.account.joined}
+          lang={props.account.lang}
+          showLang={showLang}
           nameFont={nullish(nameFont)}
           pronouns={nullish(pronouns)}
           username={username}

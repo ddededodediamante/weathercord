@@ -4,27 +4,7 @@ import { AuthorizedAccountFromAPI } from "@/db/schema";
 import Box from "../Box/Box";
 import DefaultMessage from "../DefaultMessage/DefaultMessage";
 import "./LanguageTab.css";
-import { setl10nData } from "../DefaultMessage/localize";
-
-interface Language {
-  name: string;
-  code: string;
-}
-
-const languages: Language[] = [
-  {
-    name: "English (US)",
-    code: "en-us"
-  },
-  {
-    name: "Español (Latinoamérica)",
-    code: "es-419"
-  },
-  {
-    name: "toki pona",
-    code: "tok"
-  }
-];
+import { languages, setl10nData } from "@/lib/l10n";
 
 const LanguageTab = (props: {
   account: AuthorizedAccountFromAPI

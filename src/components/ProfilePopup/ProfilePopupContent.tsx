@@ -5,13 +5,16 @@ import { contributors } from "@/lib/contributors";
 import { Cake, Globe, Heart, Shield, Star } from "lucide-react";
 import { ConnectionType, type PublicAccount } from "@/db/schema";
 import convert from "color-convert";
+import { CSSProperties, Dispatch, SetStateAction } from "react";
 import DefaultMessage from "../DefaultMessage/DefaultMessage";
-import { Dispatch, SetStateAction } from "react";
 import { ModalType } from "@/lib/modals";
 import UsernameIDSwitcher from "./UsernameIDSwitcher";
+import { languages } from "@/lib/l10n";
 
-const ProfilePopupContent = (props: Record<string, any> & Omit<PublicAccount, "lang"> & {
+const ProfilePopupContent = (props: PublicAccount & {
   canEdit?: boolean,
+  className?: string,
+  style?: CSSProperties,
   setModal?: Dispatch<SetStateAction<ModalType | null>>
 }) => {
   let accent1 = props.accent1;
@@ -67,6 +70,16 @@ const ProfilePopupContent = (props: Record<string, any> & Omit<PublicAccount, "l
             <Badge color="#ff87cf" icon={<Heart />} value={(
               <DefaultMessage id="badge.contributor" />
             )} />
+          }
+          {props.showLang && (() => {
+            const language = languages.find((language) => language.code);
+            if (!language) return;
+            return (
+              <Badge color="#ffbddb" icon={<img className="lucide w-[1.5rem] saturate-0 opacity-75 transition" src={`/l10n/icons/${language.code}.svg`} />} value={(
+                <span>{language.name}</span>
+              )} />
+            )
+          })()
           }
           <Badge color="#ffc2fc" icon={<Cake />} value={(
               <DefaultMessage

@@ -1,11 +1,11 @@
 "use client";
 
-import AccountSettingsModal, { modalTabURLNames } from "../AccountSettingsModal/AccountSettingsModal";
+import AccountSettingsModal from "../AccountSettingsModal/AccountSettingsModal";
 import { AuthorizedAccountFromAPI } from "@/db/schema";
 import LoadingScreen from "../LoadingScreen/LoadingScreen";
 import { ModalType } from "@/lib/modals";
 import { Prompt } from "../Prompt/Prompt";
-import { setl10nData } from "../DefaultMessage/localize";
+import { setl10nData } from "@/lib/l10n";
 import SignUpModal from "../SignUpModal/SignUpModal";
 import { useEffect, useState } from "react";
 import UserIndicator from "../UserIndicator/UserIndicator";
