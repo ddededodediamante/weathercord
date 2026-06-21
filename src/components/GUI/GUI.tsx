@@ -18,17 +18,28 @@ const GUI = () => {
 
   useEffect(() => {
     fetch("/whoami")
-      .then((res) => res.json())
-      .then((account) => {
-        setAccount(account);
-        setl10nData(account.lang)
-          .then(() => setLoading(false));
+      .then((res) => {
+        if (res.ok) res.json()
+          .then((account) => {
+            setAccount(account);
+            setl10nData(account.lang)
+              .then(() => setLoading(false));
+          });
+        else {
+          setl10nData("en-us")
+            .then(() => setLoading(false));
+        }
       });
   }, [0]);
 
-  if (!account || loading) return (
-    <LoadingScreen />
-  );
+  if (!account) {
+    if (loading) return (
+      <LoadingScreen />
+    );
+    else return (
+      <SignUpModal />
+    );
+  }
 
   return (
     <>
@@ -41,9 +52,6 @@ const GUI = () => {
 
       {modal === ModalType.AccountSettings &&
         <AccountSettingsModal closeModal={() => setModal(null)} account={account} setAccount={setAccount} startingTab={initialAccountSettingsTab} setInitialAccountSettingsTab={setInitialAccountSettingsTab} />
-      }
-      {modal === ModalType.SignUp &&
-        <SignUpModal />
       }
     </>
   );

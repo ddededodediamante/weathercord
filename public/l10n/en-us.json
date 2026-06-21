@@ -34,5 +34,9 @@
   "settings.tab.profile.save": "Save profile",
   "settings.tab.profile.show-language": "Show language on profile",
   "settings.tab.profile.upload-limit": "Maximum upload size of {{limit}} MB.",
-  "settings.tab.profile.username": "Username"
+  "settings.tab.profile.username": "Username",
+  "sign-up.header": "Join {{APP_NAME}}",
+  "sign-up.password-1": "Password",
+  "sign-up.password-2": "Re-type Password",
+  "sign-up.submit": "Create account"
 }

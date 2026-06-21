@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import DefaultMessage, { defaultMessage } from "../DefaultMessage/DefaultMessage";
 import Modal from "../Modal/Modal";
+import { useState } from "react";
 
 const pictures = 10;
 
@@ -43,7 +44,7 @@ const SignUpModal = () => {
       <Modal>
         <Pictures />
         <img className="w-12 m-auto" src="/Weathercord.svg" alt="Weathercord" />
-        <h1 className="text-center">Join Weathercord</h1>
+        <h1 className="text-center"><DefaultMessage id="sign-up.header" /></h1>
         <form onSubmit={async (event) => {
           event.preventDefault();
           if (password !== password2) {
@@ -64,18 +65,18 @@ const SignUpModal = () => {
           }
         }}>
           <label>
-            <div>Username</div>
+            <div><DefaultMessage id="settings.tab.profile.username" /></div>
             <input type="text" value={username} onChange={(event) => setUsername(event.currentTarget.value)} />
           </label>
           <label>
-            <div>Password</div>
+            <div><DefaultMessage id="sign-up.password-1" /></div>
             <input type="password" value={password} onChange={(event) => setPassword(event.currentTarget.value)} />
           </label>
           <label>
-            <div>Re-type Password</div>
+            <div><DefaultMessage id="sign-up.password-2" /></div>
             <input type="password" value={password2} onChange={(event) => setPassword2(event.currentTarget.value)} />
           </label>
-          <input type="submit" value="Create Account" />
+          <input type="submit" value={defaultMessage("sign-up.submit")} />
         </form>
         <div style={{
           boxSizing: "content-box",
