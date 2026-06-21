@@ -1,7 +1,7 @@
 "use client";
 
 import Box from "../Box/Box";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Prompt = (props: Record<string, any> & {
   // message: string,
@@ -16,6 +16,8 @@ export const Prompt = (props: Record<string, any> & {
   useEffect(() => {
     if (!(currentTarget && selection && offset)) return;
 
+    const promptElement = document.querySelector("div.prompt")!;
+
     currentTarget.innerHTML = message
       .replace("&", "&amp;")
       .replace("<", "&lt;")
@@ -25,23 +27,8 @@ export const Prompt = (props: Record<string, any> & {
 
     const newRange = document.createRange();
 
-    const childNodes = currentTarget.childNodes;
-    let childNode = 0;
-    for (let i = 0; i < childNodes.length; i++) {
-      if (childNodes[i].isEqualNode(caretNode!)) childNode = i;
-    }
-    let nodeOffset = 0;
-
-    for (let i = 0; i < offset; i++) {
-      if (childNodes[childNode].textContent?.length === nodeOffset) {
-        childNode++;
-        nodeOffset = 0;
-      } else nodeOffset++;
-    }
-
-    console.log(childNodes[childNode], nodeOffset);
-
-    newRange.setStart(childNodes[childNode], nodeOffset);
+    console.log(caretNode!.parentElement ?? promptElement, offset);
+    newRange.setStart(caretNode!.parentElement ?? promptElement, offset);
     newRange.collapse(true);
 
     selection.removeAllRanges();
@@ -53,16 +40,17 @@ export const Prompt = (props: Record<string, any> & {
       <div
         suppressContentEditableWarning
         contentEditable
-        className="outline-none p-1"
+        className="outline-none p-1 prompt"
         onInput={(event) => {
           event.preventDefault();
 
           const sel = getSelection()!;
+          const range = sel.getRangeAt(0);
 
           setCurrentTarget(event.currentTarget);
           setSelection(sel);
-          setOffset(sel.getRangeAt(0).startOffset);
-          setCaretNode(sel.getRangeAt(0).startContainer);
+          setOffset(range.startOffset);
+          setCaretNode(range.startContainer);
 
           setMessage(event.currentTarget.innerText);
         }}

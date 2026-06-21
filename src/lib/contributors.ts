@@ -54,13 +54,23 @@ const people = {
     },
     quote: "hello there, person who is reading this piece of text right now"
   },
+  noodles: {
+    name: "noodles",
+    roles: [ContributorRole.Translator],
+    github: {
+      username: "windynoodles",
+      id: "155268413"
+    },
+    quote: "wood fired pizza? how's pizza gonna get a job now"
+  }
 };
 
 export const team = Object.freeze<Contributor[]>([
   people.rayne,
   people.tally,
   people.dde,
-  people.vuie
+  people.vuie,
+  people.noodles
 ]);
 
 export const contributors = Object.freeze<Contributor[]>([

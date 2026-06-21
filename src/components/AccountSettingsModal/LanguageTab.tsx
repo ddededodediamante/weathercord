@@ -7,21 +7,22 @@ import "./LanguageTab.css";
 import { setl10nData } from "../DefaultMessage/localize";
 
 interface Language {
-  country: string;
   name: string;
   code: string;
 }
 
 const languages: Language[] = [
   {
-    country: "US",
     name: "English (US)",
     code: "en-us"
   },
   {
-    country: "MX",
     name: "Español (Latinoamérica)",
     code: "es-419"
+  },
+  {
+    name: "toki pona",
+    code: "tok"
   }
 ];
 
@@ -37,7 +38,7 @@ const LanguageTab = (props: {
             return (
               <button key={i} className="lang" onClick={() => setl10nData(language.code)}>
                 <div className="transition">
-                  <img src={`https://flagsapi.com/${language.country}/flat/32.png`} aria-hidden />
+                  <img src={`/l10n/icons/${language.code}.svg`} aria-hidden />
                   <span>{language.name}</span>
                 </div>
               </button>
