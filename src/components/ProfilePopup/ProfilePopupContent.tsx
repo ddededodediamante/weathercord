@@ -10,6 +10,7 @@ import DefaultMessage from "../DefaultMessage/DefaultMessage";
 import { ModalType } from "@/lib/modals";
 import UsernameIDSwitcher from "./UsernameIDSwitcher";
 import { languages } from "@/lib/l10n";
+import { nullish } from "@/lib/typing";
 
 const ProfilePopupContent = (props: PublicAccount & {
   canEdit?: boolean,

@@ -5,7 +5,7 @@ import Box from "../Box/Box";
 import DefaultMessage, { defaultMessage } from "../DefaultMessage/DefaultMessage";
 import { Dispatch, SetStateAction, useState } from "react";
 import { FeedbackState, FeedbackStateType } from "./AccountSettingsModal";
-import { nullish } from "@/lib/api";
+import { nullish } from "@/lib/typing";
 import ProfilePopupContent from "../ProfilePopup/ProfilePopupContent";
 import UsernameInput from "../UsernameInput/UsernameInput";
 
@@ -68,9 +68,9 @@ const ProfileTab = (props: {
             admin: props.account.admin,
             avatar: avatarPreviewURL,
             banner: bannerPreviewURL,
-            bio: nullish(bio),
+            bio: nullish(bio.trim()),
             connections: props.account.connections,
-            displayName: nullish(displayName),
+            displayName: nullish(displayName.trim()),
             email: props.account.email,
             id: props.account.id,
             joined: props.account.joined,
