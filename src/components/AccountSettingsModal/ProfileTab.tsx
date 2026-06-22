@@ -96,7 +96,7 @@ const ProfileTab = (props: {
               reader.readAsDataURL(avatarFile);
             }} />
             <div><DefaultMessage
-              id="settings.tab.profile.upload-limit"
+              id="settings.tab.profile.avatar.help"
               values={{
                 limit: "1"
               }}
@@ -113,7 +113,7 @@ const ProfileTab = (props: {
               reader.readAsDataURL(bannerFile);
             }} />
             <div><DefaultMessage
-              id="settings.tab.profile.upload-limit"
+              id="settings.tab.profile.banner.help"
               values={{
                 limit: "1"
               }}

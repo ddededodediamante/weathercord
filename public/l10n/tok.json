@@ -20,6 +20,7 @@
   "settings.tab.language": "toki",
   "settings.tab.profile": "sina",
   "settings.tab.profile.avatar": "sitelen lili",
+  "settings.tab.profile.avatar.help": "ijo o lon anpa {{limit}}MB.",
   "settings.tab.profile.banner": "sitelen suli",
   "settings.tab.profile.bio": "sitelen sina",
   "settings.tab.profile.card-accent": "kule",
@@ -33,6 +34,5 @@
   "settings.tab.profile.name-font.techno": "linja pi ilo sin",
   "settings.tab.profile.pronouns": "nimi lili",
   "settings.tab.profile.save": "o pana sin",
-  "settings.tab.profile.upload-limit": "ijo o lon anpa {{limit}}MB.",
   "settings.tab.profile.username": "nimi insa"
 }
