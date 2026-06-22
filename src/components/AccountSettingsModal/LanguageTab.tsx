@@ -19,7 +19,7 @@ const LanguageTab = (props: {
         <div className="flex flex-col rounded-2xl">
           {languages.map((language, i) => {
             return (
-              <button key={i} className={"lang".concat(props.account?.lang ?? lang === language.code ? " active" : "")} onClick={() => {
+              <button key={i} className={"lang".concat((props.account?.lang ?? lang) === language.code ? " active" : "")} onClick={() => {
                 if (props.account && props.setAccount) {
                   props.setAccount({
                     ...props.account,
