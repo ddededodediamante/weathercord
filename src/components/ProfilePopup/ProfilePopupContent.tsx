@@ -28,7 +28,6 @@ const ProfilePopupContent = (props: PublicAccount & {
     a2[2] = Math.min(a2[2], 30);
     accent2 = "#" + convert.hsl.hex(a2);
   }
-  console.log(accent1, accent2);
 
   return (
     <div className={"profileCard text-left " + props.className} style={props.style}>

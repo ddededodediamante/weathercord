@@ -70,7 +70,6 @@ const AccountSettingsModal = (props: {
   }, [0]);
 
   useEffect(() => {
-    console.log(feedbackState);
     setFeedbackStateShowing(!!feedbackState);
     if (feedbackStateTimeout) clearTimeout(feedbackStateTimeout);
     if (feedbackState) setFeedbackStateTimeout(setTimeout(() => setFeedbackStateShowing(false), feedbackState.type === FeedbackStateType.Message ? 5000 : 8000));
