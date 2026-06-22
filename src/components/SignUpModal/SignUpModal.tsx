@@ -1,12 +1,13 @@
 "use client";
 
+import AboutTab from "../AccountSettingsModal/AboutTab";
 import { APP_NAME } from "@/lib/constants";
 import DefaultMessage, { defaultMessage } from "../DefaultMessage/DefaultMessage";
-import Modal from "../Modal/Modal";
-import { useState } from "react";
-import AboutTab from "../AccountSettingsModal/AboutTab";
-import LanguageTab from "../AccountSettingsModal/LanguageTab";
 import { Globe } from "lucide-react";
+import LanguageTab from "../AccountSettingsModal/LanguageTab";
+import Modal from "../Modal/Modal";
+import UsernameInput from "../UsernameInput/UsernameInput";
+import { useState } from "react";
 
 const pictures = 10;
 
@@ -39,7 +40,6 @@ const Pictures = () => (
 const SignUpModal = () => {
   let [aboutOpen, setAboutOpen] = useState(false);
   let [langOpen, setLangOpen] = useState(false);
-  let [lang, setLang] = useState("en-us");
 
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
@@ -79,10 +79,7 @@ const SignUpModal = () => {
               return;
             }
           }}>
-            <label>
-              <div><DefaultMessage id="settings.tab.profile.username" /></div>
-              <input type="text" value={username} onChange={(event) => setUsername(event.currentTarget.value)} />
-            </label>
+            <UsernameInput username={username} setUsername={setUsername} />
             <label>
               <div><DefaultMessage id="sign-up.password-1" /></div>
               <input type="password" value={password} onChange={(event) => setPassword(event.currentTarget.value)} />

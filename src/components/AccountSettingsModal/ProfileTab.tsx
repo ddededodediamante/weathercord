@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { FeedbackState, FeedbackStateType } from "./AccountSettingsModal";
 import { nullish } from "@/lib/api";
 import ProfilePopupContent from "../ProfilePopup/ProfilePopupContent";
+import UsernameInput from "../UsernameInput/UsernameInput";
 
 const ProfileTab = (props: {
   account: AuthorizedAccountFromAPI,
@@ -26,7 +27,6 @@ const ProfileTab = (props: {
   let [nameFont, setNameFont] = useState(props.account.nameFont ?? "");
   let [pronouns, setPronouns] = useState(props.account.pronouns ?? "");
   let [username, setUsername] = useState(props.account.username);
-  let [usernameError, setUsernameError] = useState("");
 
   return (
     <div className="flex gap-2 items-start">
@@ -138,30 +138,7 @@ const ProfileTab = (props: {
               <option value="Goldman"><DefaultMessage id="settings.tab.profile.name-font.techno" /></option>
             </select>
           </label>
-          <label>
-            <div>{usernameError ? <span className="error">{usernameError}</span> : <DefaultMessage id="settings.tab.profile.username" />}</div>
-            <input
-              type="text"
-              value={username}
-              onChange={(event) => {
-                setUsername(event.currentTarget.value.replace(/[^a-zA-Z0-9-_.]/g, ""));
-                setUsernameError("");
-              }}
-              onBlur={async (event) => {
-                if (event.currentTarget.value.length < 1) return setUsernameError("Username is too short");
-                if (event.currentTarget.value.length > 20) return setUsernameError("Username is too long");
-                if (event.currentTarget.value.endsWith(".")) return setUsernameError("Username cannot end with a period");
-                if (event.currentTarget.value.endsWith("-")) return setUsernameError("Username cannot end with a dash");
-                if (event.currentTarget.value === props.account.username) return setUsernameError("");
-                const res = await fetch(`/u/${encodeURIComponent(event.currentTarget.value)}`, {
-                  method: "HEAD"
-                });
-                if (res.ok) return setUsernameError("Username is taken");
-                setUsernameError("");
-              }}
-              className={usernameError ? "error" : ""}
-            />
-          </label>
+          <UsernameInput account={props.account} username={username} setUsername={setUsername} />
           <label>
             <div><DefaultMessage id="settings.tab.profile.pronouns" /></div>
             <input type="text" value={pronouns} onChange={(event) => setPronouns(event.currentTarget.value)} />

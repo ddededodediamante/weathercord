@@ -182,6 +182,10 @@ input:not([type="checkbox"]), textarea, :is(a, button).action, select {
   transition: outline-color 0.125s;
 }
 
+input:disabled {
+  color: var(--sub);
+}
+
 :is(a, button).action {
   text-align: center;
 }
