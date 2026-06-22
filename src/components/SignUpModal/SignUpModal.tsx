@@ -1,5 +1,6 @@
 "use client";
 
+import { APP_NAME } from "@/lib/constants";
 import DefaultMessage, { defaultMessage } from "../DefaultMessage/DefaultMessage";
 import Modal from "../Modal/Modal";
 import { useState } from "react";
@@ -43,7 +44,7 @@ const SignUpModal = () => {
     <>
       <Modal>
         <Pictures />
-        <img className="w-12 m-auto" src="/Weathercord.svg" alt="Weathercord" />
+        <img className="w-12 m-auto" src="/Weathercord.svg" alt={APP_NAME} />
         <h1 className="text-center"><DefaultMessage id="sign-up.header" /></h1>
         <form onSubmit={async (event) => {
           event.preventDefault();
