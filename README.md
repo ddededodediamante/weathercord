@@ -23,7 +23,7 @@ cd weathercord
 ```
 
 Then, install dependencies:
-```
+```sh
 npm ci
 ```
 
